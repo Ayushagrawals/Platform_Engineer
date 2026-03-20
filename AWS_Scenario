@@ -1,0 +1,152 @@
+
+# 🔥 🎯 AWS SCENARIO QUESTIONS (COMPLETE LIST)
+
+---
+
+# 🔹 🟢 1. EC2 / Compute (FOUNDATION)
+
+1. EC2 running but app not accessible
+2. App works locally but fails on EC2
+3. EC2 CPU high — what to check?
+4. EC2 suddenly unreachable
+5. SSH not working
+6. Disk full on EC2 — impact?
+7. App running but port not accessible
+8. EC2 restarted automatically — why?
+9. High memory usage on EC2
+10. Instance slow but CPU low
+
+---
+
+# 🔹 🔵 2. Load Balancer (VERY IMPORTANT)
+
+11. Load balancer returning 502 error
+12. Load balancer returning 503 error
+13. Traffic reaching LB but not EC2
+14. One instance overloaded, others idle
+15. Health checks failing
+16. LB working but response slow
+17. Sticky sessions issue
+18. SSL not working on LB
+19. Target group has no healthy instances
+20. Wrong routing to instances
+
+---
+
+# 🔹 🟣 3. Networking (HIGH IMPACT)
+
+21. App not accessible from internet
+22. Works internally but not externally
+23. Works from one subnet, not another
+24. Security group vs NACL issue
+25. DNS not resolving
+26. High network latency
+27. VPC peering not working
+28. Private subnet cannot access internet
+29. Route table misconfiguration
+30. Packet loss / intermittent connectivity
+
+---
+
+# 🔹 🟡 4. IAM (VERY COMMON)
+
+31. Access denied even after permission
+32. EC2 cannot access S3
+33. Role attached but not working
+34. Wrong policy attached
+35. Temporary credentials expired
+36. Cross-account access not working
+37. API call failing due to IAM
+38. Service role missing
+39. Over-permission issue (security risk)
+40. Policy working for one service, not another
+
+---
+
+# 🔹 🟠 5. S3 / Storage
+
+41. S3 upload Access Denied
+42. S3 slow performance
+43. Object not accessible publicly
+44. Data inconsistency in S3
+45. Versioning issue
+46. Lifecycle policy not working
+47. Large file upload failing
+48. Cross-region replication not working
+49. Bucket policy vs IAM conflict
+50. Static website not loading
+
+---
+
+# 🔹 🔴 6. Auto Scaling (VERY IMPORTANT)
+
+51. Auto scaling not triggering
+52. Instances not launching
+53. Instances launching but not serving traffic
+54. Scaling too slow
+55. Scaling too aggressive
+56. Instances terminated unexpectedly
+57. Health check failing → instance removed
+58. New instances not registered in LB
+59. Scaling based on wrong metric
+60. Desired capacity mismatch
+
+---
+
+# 🔹 ⚫ 7. EKS (Kubernetes + AWS)
+
+61. Pods not getting external traffic
+62. Nodes not joining cluster
+63. Load balancer not created
+64. Pods Pending due to node issue
+65. IAM role for service account not working
+66. EBS volume not attaching
+67. Cluster autoscaler not working
+68. Networking issue between pods
+69. Ingress not working
+70. High latency in EKS
+
+---
+
+# 🔹 ⚪ 8. Debugging / Real-world
+
+71. System working yesterday, not today
+72. High latency but CPU low
+73. Intermittent failure
+74. Only some users affected
+75. Logs show nothing but system down
+76. One AZ slow, others fine
+77. Traffic spike — system down
+78. Partial outage
+79. Dependency failure
+80. Timeout errors increasing
+
+---
+
+# 🔥 🎯 MOST IMPORTANT (if limited time)
+
+Focus on these 15:
+
+* EC2 not accessible
+* LB 502
+* Security group issue
+* IAM access denied
+* S3 access denied
+* Auto scaling not working
+* Instance not in LB
+* DNS issue
+* Private subnet internet issue
+* High latency
+* EKS traffic issue
+* Node not joining cluster
+* EBS issue
+* Health check failing
+* Scaling delay
+
+---
+
+# 🔥 One-line clarity
+
+> **AWS interviews = networking + debugging + traffic flow understanding**
+
+---
