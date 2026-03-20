@@ -1,0 +1,175 @@
+Scenario based question Kubernetes
+
+Q - Pod in CrashLoopBackOff
+If a pod is in CrashLoopBackOff, I would first check the pod events using kubectl describe pod to understand why it is restarting. Then I would check logs using kubectl logs and also --previous
+logs to capture the last failed execution. I would look for application errors like exceptions or missing dependencies. I would also check if the pod was OOMKilled due to memory limits or if
+there is CPU throttling. Additionally, I would verify configuration issues like environment variables, ConfigMaps, or incorrect image versions
+
+Q - Pod in Pending state
+Ans - If a pod is in Pending state, I would first check scheduling events using kubectl describe pod to see why it is not assigned to a node. Common reasons include insufficient CPU or memory, 
+node not ready, or taints preventing scheduling. I would also check if cluster autoscaler is working, as pods may be waiting for new nodes. Additionally, I would verify node affinity, 
+pod constraints, and storage issues such as EBS volume AZ mismatch or unbound PVC
+
+Q - 3. Service not reachable internally
+I would first check if the service selector correctly matches pod labels. 
+Then verify endpoints to ensure pods are registered. I would also check service ports and pod health. If everything looks correct, 
+I would investigate network policies or kube-proxy issues
+
+Q - Service not reachable externally
+For external access, I would check if the service is of type LoadBalancer or if ingress is configured correctly. Then I would verify that the load balancer has a valid external IP and 
+health checks are passing. 
+I would also check security groups and ensure traffic is allowed. Finally, I would confirm that the service is correctly routing traffic to healthy pods
+
+5. Pods restarting frequently
+f pods are restarting frequently, I would first check kubectl describe pod to see restart reasons such as OOMKilled or probe failures.
+Then I would check logs for application errors. Common causes include insufficient memory, failing liveness probes, configuration issues, or dependency failures.
+Based on the root cause, I would adjust resource limits, fix application errors, or correct configurations
+
+Q - 6. CPU low but latency high
+
+If CPU is low but latency is high, it usually indicates an I/O or dependency bottleneck rather than compute. I would first check if the application is waiting on external services like databases,
+APIs, or storage. Then I would investigate thread pool or connection pool exhaustion, where requests are waiting despite low CPU usage. 
+I would also check network latency, DNS issues, and load distribution across pods. The goal is to identify where the system is blocked rather than busy.”
+
+7. HPA not scaling
+
+If HPA is not scaling, I would first check HPA status using kubectl describe hpa to see current vs target metrics. 
+Then I would verify if metrics server is running, as HPA depends on metrics. I would also check if CPU requests are defined correctly and whether 
+the current usage exceeds the threshold. Additionally, I would verify max replica limits and ensure the cluster has enough capacity to scale.
+Finally, I would confirm that HPA is correctly linked to the target deployment
+
+8. Perfect — these are **very high-frequency interview scenarios** 🔥
+I’ll give you **clean, structured, interview-ready answers** you can almost memorize.
+
+---
+
+🔥 🎯 8. Pods scaled but NO traffic distribution
+## 🧠 Problem
+Pods are created, but traffic is not reaching them.
+
+## 🔥 Ideal Answer
+
+> “If pods are scaled but not receiving traffic, I would first check whether the service is correctly routing traffic to all pods.”
+
+## 🔹 Steps
+
+### 🟢 1. Check Service selector (MOST COMMON)
+```bash
+kubectl get svc
+kubectl describe svc
+``
+* Selector matches pod labels?
+---
+### 🔵 2. Check Endpoints
+```bash
+kubectl get endpoints <service>
+```
+👉 If new pods not listed:
+> Service not routing to them
+---
+### 🟣 3. Readiness Probe
+👉 VERY IMPORTANT
+* Pods not “Ready” → no traffic
+---
+### 🟡 4. Load imbalance
+* One pod overloaded
+* Others idle
+---
+### 🔴 5. Sticky sessions
+* Session affinity enabled
+* Same pod serving all requests
+---
+## 🔥 Final line
+> “Most commonly this happens due to selector mismatch or readiness probe failure.”
+---
+---
+# 🔥 🎯 9. Pod stuck in Terminating
+## 🧠 Problem
+Pod not getting deleted.
+---
+## 🔥 Ideal Answer
+> “If a pod is stuck in Terminating, I would check if there are finalizers or if the container is not shutting down gracefully.”
+---
+## 🔹 Steps
+### 🟢 1. Check finalizers
+```bash
+kubectl get pod <pod> -o yaml
+```
+👉 If present:
+> Blocking deletion
+---
+### 🔵 2. Check graceful shutdown
+* App not exiting
+* PreStop hook stuck
+---
+### 🟣 3. Check node issue
+* Node unreachable
+* Kubelet not responding
+---
+### 🟡 4. Force delete (last option)
+```bash
+kubectl delete pod <pod> --force --grace-period=0
+```
+---
+##🔥 Final line
+> “Common causes are finalizers, stuck processes, or node issues.”
+---
+---
+# 🔥 🎯 10. ConfigMap / Secret not working
+## 🧠 Problem
+App not getting config values.
+---
+## 🔥 Ideal Answer
+> “If ConfigMap or Secret is not working, I would verify whether it is correctly mounted or injected into the pod.”
+---
+## 🔹 Steps
+### 🟢 1. Check if mounted/injected
+```bash
+kubectl describe pod
+```
+* Env variables present?
+* Volume mounted?
+---
+### 🔵 2. Check reference name
+* Correct ConfigMap name?
+* Correct key?
+---
+### 🟣 3. Pod restart needed?
+👉 VERY IMPORTANT
+* Changes not reflected automatically
+* Need restart
+-
+### 🟡 4. Namespace issue
+* ConfigMap in different namespace
+---
+### 🔴 5. Secret decoding issue
+* Wrong format (base64)
+---
+## 🔥 Final line
+> “Most issues are due to incorrect reference, missing restart, or namespace mismatch.”
+---
+# 🔥 🧠 How to remember all answers
+👉 Always follow:
+> **Check config → check linkage → check runtime → fix**
+---
+
+# 🔥 Final takeaway
+
+You should aim to answer like:
+
+> “First I check…, then…, then…, most common reason is…”
+
+---
+
+# 🔥 One-line clarity
+
+> **Platform interviews = structured debugging, not random guessing**
+
+---
+
+If you want next:
+
+👉 I can give you **Top 10 MOST asked scenarios (with perfect answers)** — these alone can crack interviews 🚀
+
+
+
