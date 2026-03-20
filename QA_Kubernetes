@@ -1,0 +1,144 @@
+Great question — and I’ll be very honest with you 👇
+
+---
+
+# 🔥 ❗ Are these 10 Kubernetes questions enough?
+
+👉 **NO — but they are the foundation**
+
+For **30–40 LPA Platform roles**, you need:
+
+> 🔥 ~25–30 strong Kubernetes scenarios
+
+---
+
+# 🔹 🎯 What you already have
+
+You covered:
+
+* CrashLoopBackOff ✅
+* Pending pods ✅
+* Service issues ✅
+* HPA basics ✅
+* Restart issues ✅
+
+👉 This is **good base (≈ 40%)**
+
+---
+
+# 🔥 🎯 Add THESE HIGH-IMPACT scenarios (VERY IMPORTANT)
+
+---
+
+# 🔹 🟢 Advanced Kubernetes Scenarios
+
+## 🔥 Scheduling & Cluster
+
+1. Pods stuck in Pending even though nodes exist
+2. Pods scheduled on wrong nodes
+3. Taints & tolerations mismatch
+4. Node under heavy pressure (disk/memory)
+5. Cluster autoscaler not scaling nodes
+
+---
+
+## 🔥 Networking (VERY IMPORTANT)
+
+6. Service works internally but not via DNS
+7. DNS resolution failing inside pod
+8. Pod cannot reach another pod
+9. NetworkPolicy blocking traffic
+10. Ingress not routing traffic correctly
+
+---
+
+## 🔥 Deployment Issues
+
+11. Deployment successful but old version still running
+12. Rolling update stuck
+13. Pods not updated after deployment
+14. Image updated but old image used
+15. Rollback not working
+
+---
+
+## 🔥 Resource / Performance
+
+16. CPU throttling happening
+17. Memory usage increasing gradually
+18. Node running out of resources
+19. One pod overloaded, others idle
+20. Pods evicted from node
+
+---
+
+## 🔥 Storage (VERY IMPORTANT for senior roles)
+
+21. PVC not bound
+22. Volume mount failing
+23. EBS volume not attaching
+24. Pod cannot access storage
+25. Data loss after pod restart
+
+---
+
+## 🔥 Observability / Debugging
+
+26. Logs not visible
+27. Metrics not available
+28. Monitoring not showing correct data
+29. Alerts not triggering
+30. Silent failure (no logs, system down)
+
+---
+
+# 🔹 🔥 Most IMPORTANT 10 (if time is less)
+
+Focus on these:
+
+1. CrashLoopBackOff
+2. Pending pods
+3. Service not reachable
+4. HPA not scaling
+5. CPU low, latency high
+6. Pods restarting
+7. Deployment not updating
+8. Ingress not working
+9. PVC not bound
+10. Pod stuck terminating
+
+---
+
+# 🔹 🧠 What interviewer actually checks
+
+Not number of questions — but:
+
+* Can you debug step-by-step?
+* Do you know root causes?
+* Can you think in layers?
+
+---
+
+# 🔥 Final Answer
+
+> “The initial 10 Kubernetes scenarios are a good foundation, but for strong platform engineer interviews, you should prepare around 25–30 scenario-based questions covering scheduling, networking, deployment, scaling, storage, and debugging.”
+
+---
+
+# 🔥 One-line clarity
+
+> **Depth of understanding > number of questions**
+
+---
+
+# 🔥 Best next step
+
+👉 Let’s do this smartly:
+
+I’ll give you:
+
+* **Top 15 MOST asked Kubernetes scenarios with perfect answers**
+
+These alone can **crack interviews**
+
+Just say: **“top 15”** 🚀
