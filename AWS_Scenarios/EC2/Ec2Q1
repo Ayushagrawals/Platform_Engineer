@@ -1,0 +1,235 @@
+Q - App works locally but fails on EC2
+
+This is a **gold-level interview scenario** 🔥 — very common and they expect a **systematic answer**, not random guesses.
+
+👉 **“App works locally but fails on EC2”**
+Means: code is fine ✅ → environment/config/network issue ❌
+
+---
+
+# 🧠 1. Think Like This (Key Insight)
+
+```text
+Local = controlled environment  
+EC2 = real environment (network + security + infra)
+```
+
+👉 So failure is usually due to:
+
+* config mismatch
+* port/network issue
+* dependency access
+* environment variables
+
+---
+
+# 🔍 2. Step-by-Step Debugging
+
+---
+
+## ⚙️ A. Application NOT Running Properly
+
+First check:
+
+```bash
+ps -ef | grep java
+```
+
+or
+
+```bash
+docker ps
+```
+
+👉 Then logs:
+
+```bash
+tail -f app.log
+```
+
+❌ Common:
+
+* missing env variables
+* config file not loaded
+
+---
+
+## 🔌 B. Port / Binding Issue (VERY COMMON 🔥)
+
+👉 Locally works because:
+
+```text
+localhost → works
+```
+
+But in EC2:
+
+```text
+App bound to 127.0.0.1 ❌
+```
+
+Check:
+
+```bash
+netstat -tulnp
+```
+
+👉 Should be:
+
+```text
+0.0.0.0:8080 ✅
+```
+
+---
+
+## 🔓 C. Security Group Blocking
+
+Even if app runs → port may be blocked
+
+Check:
+
+* 8080 / 80 / 443 open?
+
+---
+
+## 🌐 D. Dependency Access Issue
+
+👉 Locally:
+
+* DB = localhost
+* services = accessible
+
+👉 EC2:
+
+* DB might be private
+* external APIs blocked
+
+Examples:
+
+* DB URL wrong
+* Zookeeper not reachable
+* OIDC URL failing (you mentioned earlier)
+
+---
+
+## 📦 E. Environment Variables Missing
+
+Classic issue:
+
+```text
+Local → .env loaded  
+EC2 → NOT set ❌
+```
+
+Check:
+
+```bash
+printenv
+```
+
+---
+
+## 🧪 F. Test Inside EC2
+
+```bash
+curl localhost:8080
+```
+
+### Result:
+
+| Result | Meaning                |
+| ------ | ---------------------- |
+| Works  | App OK → network issue |
+| Fails  | App issue              |
+
+---
+
+## 🔥 G. Firewall Inside EC2
+
+```bash
+sudo ufw status
+```
+
+or
+
+```bash
+iptables -L
+```
+
+---
+
+## 🌍 H. Wrong IP / URL
+
+👉 Are you hitting:
+
+* correct public IP?
+* correct port?
+
+---
+
+## ⚖️ I. Load Balancer / Reverse Proxy Issue
+
+If using:
+
+* Nginx
+* ALB
+
+Check:
+
+* port mapping
+* upstream config
+
+---
+
+# 🎯 3. Interview Answer (Perfect Structure)
+
+If interviewer asks:
+
+👉 “App works locally but not on EC2, what will you check?”
+
+Say this:
+
+```text
+1. First, verify if application is running on EC2 and check logs  
+2. Test locally inside EC2 using curl localhost  
+3. Check if app is listening on correct port and bound to 0.0.0.0  
+4. Verify Security Group allows inbound traffic  
+5. Check environment variables and configuration differences  
+6. Validate connectivity to dependencies like DB, external APIs  
+7. Check firewall rules inside EC2  
+8. If using load balancer or proxy, verify routing configuration  
+```
+
+---
+
+# 💡 Real-World Insight (Your Level 🚀)
+
+You mentioned:
+
+> restarting zookeeper fixes issue
+
+👉 So add this in interview:
+
+```text
+"I would also check downstream dependencies because sometimes the app works locally but fails in EC2 due to service discovery or external dependency issues."
+```
+
+🔥 This shows:
+
+* production experience
+* not just textbook answer
+
+---
+
+# 🧠 4. Quick Root Cause Cheat Sheet
+
+| Problem                        | Root Cause            |
+| ------------------------------ | --------------------- |
+| Works locally only             | localhost binding     |
+| Timeout                        | SG / dependency issue |
+| Crash on EC2                   | missing env vars      |
+| 504 error                      | downstream service    |
+| Works via curl but not browser | SG / LB issue         |
+
+---
+
