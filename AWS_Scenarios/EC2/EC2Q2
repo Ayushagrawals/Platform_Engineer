@@ -1,0 +1,120 @@
+
+EC2 CPU high — what to check?
+# 🔹 ❌ What is missing
+
+You need to:
+
+* Start from **infra → then app**
+* Cover **all layers**
+* Not jump directly to code
+
+---
+
+# 🔹 🔥 Ideal Structured Answer
+
+Start like:
+
+> “If EC2 CPU is high, I would first identify whether the issue is due to application load or system-level processes.”
+---
+# 🔹 Step-by-step debugging
+---
+
+## 🟢 1. System level (FIRST)
+
+```bash
+top
+htop
+```
+👉 Check:
+
+* Which process consuming CPU?
+
+---
+
+## 🔵 2. Application level
+
+* Infinite loop
+* Heavy computation
+* Thread dump
+
+👉 You said this — good 👍
+
+---
+
+## 🟣 3. Traffic spike
+
+* Sudden increase in requests
+* Load balancer sending more traffic
+
+---
+
+## 🟡 4. Background jobs
+
+* Cron jobs
+* Batch jobs
+
+👉 You mentioned this 👍
+
+---
+
+## 🔴 5. Resource limits
+
+* Instance too small
+* Need scaling
+
+---
+
+## ⚫ 6. External dependency issue
+
+* Retry loops causing CPU spike
+
+---
+
+# 🔹 🔥 Final Interview Answer
+
+> “If EC2 CPU is high, I would first check system-level metrics using tools like top to identify which process is consuming CPU. Then I would analyze application behavior to see if there are issues like infinite loops or heavy computation, possibly using thread dumps. I would also check for traffic spikes or background jobs like cron tasks. Additionally, I would verify if retries due to external dependency failures are causing high CPU usage. Based on the root cause, I would optimize the application or scale the instance if needed.”
+
+---
+
+# 🔹 🎯 What you were missing
+
+| Missing            | Why important    |
+| ------------------ | ---------------- |
+| System-level check | First step       |
+| Traffic spike      | Common cause     |
+| Retry loops        | Real-world issue |
+| Structured flow    | Senior signal    |
+
+---
+
+# 🔹 🧠 Your level
+
+👉 You are:
+
+> 🟢 **Strong in application thinking, need infra-first structure**
+
+---
+
+# 🔥 One-line feedback
+
+> **Start from system → then go to code**
+
+---
+
+# 🔥 Golden rule
+
+> **High CPU = system busy (not waiting like latency case)**
+
+---
+
+# 🔥 Next (very important AWS question)
+
+Answer this:
+
+### ❓
+
+> Load balancer returning **502 error** — what will you check?
+
+---
+
+👉 This is a **must-know question** 🚀
