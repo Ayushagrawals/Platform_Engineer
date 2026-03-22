@@ -1,0 +1,125 @@
+EC@ restarted automatically why?
+
+Correct understanding
+
+“EC2 restarted automatically” means:
+👉 The same instance rebooted
+
+🔹 🔥 Ideal Structured Answer
+
+Start like:
+
+“If an EC2 instance restarted automatically, I would check whether it was due to AWS infrastructure events or OS-level issues.”
+
+🔹 🔥 Main causes (VERY IMPORTANT)
+🟢 1. AWS scheduled event (MOST COMMON)
+Hardware issue
+Maintenance
+
+👉 Check:
+
+AWS console → “Events”
+🔵 2. Instance status check failure
+AWS detects issue
+Reboots instance
+🟣 3. Auto Scaling (clarify correctly)
+
+👉 Important nuance:
+
+Auto Scaling terminates + creates new instance
+Not restart
+
+👉 So check:
+
+Was instance replaced?
+🟡 4. OS-level crash
+Kernel panic
+Out of memory
+🔴 5. User action
+Someone manually rebooted
+Script triggered reboot
+⚫ 6. Resource issue
+Disk full
+Memory exhaustion
+🔹 🔥 Debugging steps
+Step 1: AWS console
+Check Events tab
+Check Auto Scaling activity
+Step 2: System logs
+/var/log/messages
+/var/log/syslog
+Step 3: CloudWatch
+CPU
+Memory
+Restart time
+🔹 🔥 Final Interview Answer
+
+“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. Then I would verify whether the instance was replaced by an auto scaling group. If not, I would check system logs for OS-level issues like kernel panic or resource exhaustion. I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the restart.”
+
+🔹 🎯 What you missed
+Missing	Why important
+AWS events	#1 real cause
+OS crash	common issue
+Auto Scaling difference	critical concept
+CloudWatch	standard toolCorrect understanding
+
+“EC2 restarted automatically” means:
+👉 The same instance rebooted
+
+🔹 🔥 Ideal Structured Answer
+
+Start like:
+
+“If an EC2 instance restarted automatically, I would check whether it was due to AWS infrastructure events or OS-level issues.”
+
+🔹 🔥 Main causes (VERY IMPORTANT)
+🟢 1. AWS scheduled event (MOST COMMON)
+Hardware issue
+Maintenance
+
+👉 Check:
+
+AWS console → “Events”
+🔵 2. Instance status check failure
+AWS detects issue
+Reboots instance
+🟣 3. Auto Scaling (clarify correctly)
+
+👉 Important nuance:
+
+Auto Scaling terminates + creates new instance
+Not restart
+
+👉 So check:
+
+Was instance replaced?
+🟡 4. OS-level crash
+Kernel panic
+Out of memory
+🔴 5. User action
+Someone manually rebooted
+Script triggered reboot
+⚫ 6. Resource issue
+Disk full
+Memory exhaustion
+🔹 🔥 Debugging steps
+Step 1: AWS console
+Check Events tab
+Check Auto Scaling activity
+Step 2: System logs
+/var/log/messages
+/var/log/syslog
+Step 3: CloudWatch
+CPU
+Memory
+Restart time
+🔹 🔥 Final Interview Answer
+
+“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. Then I would verify whether the instance was replaced by an auto scaling group. If not, I would check system logs for OS-level issues like kernel panic or resource exhaustion. I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the restart.”
+
+🔹 🎯 What you missed
+Missing	Why important
+AWS events	#1 real cause
+OS crash	common issue
+Auto Scaling difference	critical concept
+CloudWatch	standard tool
