@@ -54,7 +54,10 @@ Memory
 Restart time
 🔹 🔥 Final Interview Answer
 
-“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. Then I would verify whether the instance was replaced by an auto scaling group. If not, I would check system logs for OS-level issues like kernel panic or resource exhaustion. I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the restart.”
+“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. 
+Then I would verify whether the instance was replaced by an auto scaling group. 
+If not, I would check system logs for OS-level issues like kernel panic or resource exhaustion. 
+I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the restart.”
 
 🔹 🎯 What you missed
 Missing	Why important
@@ -115,11 +118,14 @@ Memory
 Restart time
 🔹 🔥 Final Interview Answer
 
-“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. Then I would verify whether the instance was replaced by an auto scaling group. If not, I would check system logs for OS-level issues like kernel panic or resource exhaustion. I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the restart.”
+“If an EC2 instance restarted automatically, I would first check AWS scheduled events to see if it was due to maintenance or hardware issues. 
+Then I would verify whether the instance was replaced by an auto scaling group. If not, I would check system logs for OS-level issues like kernel
+panic or resource exhaustion. I would also review CloudWatch metrics to understand if there was a spike in CPU, memory, or disk usage before the 
+restart.”
 
-🔹 🎯 What you missed
-Missing	Why important
-AWS events	#1 real cause
-OS crash	common issue
-Auto Scaling difference	critical concept
-CloudWatch	standard tool
+if OS crash?
+
+the OS crashes on an EC2 instance, I would first check instance status and try to regain access via SSH or serial console. 
+Then I would analyze system logs like dmesg or syslog to identify issues such as kernel panic,
+memory exhaustion, or disk problems. If access is not possible, I would detach the EBS volume and mount it on another instance for debugging. 
+Based on the root cause, I would fix the issue and implement monitoring or scaling to prevent recurrence
