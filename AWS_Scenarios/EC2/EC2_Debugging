@@ -1,0 +1,194 @@
+
+Perfect — now you’re asking the **right practical question** 👍
+You don’t need theory — you need a **debugging checklist you can remember in interview**.
+
+---
+
+# 🔥 🎯 EC2 DEBUGGING — MINIMUM REQUIRED (for interviews)
+
+👉 Think in this order:
+
+> 🔥 **Instance → Network → OS → Application**
+
+---
+
+# 🔹 🟢 1. INSTANCE LEVEL (AWS)
+
+Check:
+
+* Instance **running?**
+* Status checks passed?
+
+👉 AWS Console:
+
+* Instance state
+* Events
+
+---
+
+# 🔹 🔵 2. NETWORK (MOST IMPORTANT)
+
+## ✅ Security Group
+
+* Port open? (22 / 80 / 443 / app port)
+
+---
+
+## ✅ Public IP
+
+* Instance has public IP?
+
+---
+
+## ✅ Route Table
+
+* Route to Internet Gateway?
+
+---
+
+## ✅ NACL
+
+* Not blocking traffic?
+
+---
+
+👉 💡 70% issues are here
+
+---
+
+# 🔹 🟣 3. OS LEVEL (INSIDE EC2)
+
+## ✅ Check processes
+
+```bash
+top
+htop
+```
+
+---
+
+## ✅ Check ports
+
+```bash
+netstat -tulnp
+```
+
+---
+
+## ✅ Check disk
+
+```bash
+df -h
+```
+
+---
+
+## ✅ Check logs
+
+```bash
+/var/log/messages
+/var/log/syslog
+```
+
+---
+
+# 🔹 🟡 4. APPLICATION LEVEL
+
+## ✅ App running?
+
+* Service up?
+
+---
+
+## ✅ Port binding (VERY IMPORTANT)
+
+👉 Must be:
+
+```text
+0.0.0.0
+```
+
+NOT:
+
+```text
+127.0.0.1
+```
+
+👉 You already know this — good 👍
+
+---
+
+## ✅ Dependency issues
+
+* DB/API slow?
+
+---
+
+# 🔹 🔴 5. AWS TOOLS (IMPORTANT ADDITION)
+
+## ✅ CloudWatch
+
+* CPU
+* Memory
+* Logs
+
+---
+
+## ✅ Events
+
+* Restart
+* Maintenance
+
+---
+
+# 🔹 🔥 FINAL CHECKLIST (MEMORIZE THIS)
+
+👉 In interview say:
+
+> “I would check instance status, then verify security group and networking, then check OS-level metrics like CPU, memory, and disk, and finally verify if the application is running and bound to the correct port.”
+
+---
+
+# 🔹 🧠 Commands you MUST know
+
+```bash
+top
+netstat -tulnp
+df -h
+```
+
+👉 That’s enough
+
+---
+
+# 🔹 ❗ Common mistakes to avoid
+
+* Starting with application ❌
+* Ignoring security group ❌
+* Mixing Kubernetes ❌
+
+---
+
+# 🔥 Final Answer
+
+> “For EC2 debugging, the key steps are checking instance status, verifying network access (security groups, NACLs, public IP), checking OS-level metrics (CPU, memory, disk), and ensuring the application is running and listening on the correct port.”
+
+---
+
+# 🔥 One-line clarity
+
+> **Most EC2 issues = networking or port binding**
+
+---
+
+# 🔥 You are now READY for EC2
+
+👉 Next focus:
+
+> 🔥 Load Balancer (most important topic left)
+
+---
+
+If you want:
+
+👉 I’ll give you **top 10 Load Balancer scenarios + answers** (very high impact) 🚀
