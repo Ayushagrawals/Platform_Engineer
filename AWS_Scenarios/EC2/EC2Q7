@@ -1,0 +1,121 @@
+Q -High memory usage on EC2
+Q -Instance slow but CPU low
+Q -App running but port not accessible
+
+Good — this is **strong thinking overall** 👍
+You’re already covering **system + app**, which is great.
+Now I’ll refine each answer to **interview-ready (senior level)**.
+
+---
+
+# 🔥 🎯 1. High memory usage on EC2
+
+## ✅ What you did well
+
+* Used `top` ✅
+* Thought about process/container ✅
+* Mentioned scaling ✅
+
+---
+
+## 🔹 🔥 Improved Answer
+
+> “If memory usage is high on EC2, I would first identify which process is consuming memory using tools like `top` or `htop`. Then I would check whether it’s due to application memory leak, high traffic, or background jobs. I would also verify if memory limits are sufficient. If it’s an application issue, I would optimize or fix the leak. If it’s due to load, I would scale the system vertically or horizontally as needed.”
+
+---
+
+## 🔹 Add this (to sound strong)
+
+* Memory leak scenario
+* Swap usage
+* OOM risk
+
+---
+
+# 🔥 🎯 2. Instance slow but CPU low
+
+## ✅ What you did well
+
+* Recognized CPU not issue ✅
+* Thought about memory/logs ✅
+
+---
+
+## 🔹 🔥 Improved Answer
+
+> “If the instance is slow but CPU is low, it usually indicates a bottleneck other than compute. I would check memory usage, disk I/O, and network latency. I would also verify if the application is waiting on external dependencies like databases or APIs. Additionally, I would check system logs and CloudWatch metrics to identify any anomalies.”
+
+---
+
+## 🔹 Key causes (VERY IMPORTANT)
+
+* Disk I/O high
+* Memory pressure
+* Network latency
+* Thread/connection blocking
+
+---
+
+## 🔥 Golden line (use this)
+
+> “Low CPU + slow system usually means the system is waiting, not processing.”
+
+---
+
+# 🔥 🎯 3. App running but port not accessible
+
+## ✅ What you did well
+
+* Mentioned port conflict ✅
+* Mentioned localhost vs 0.0.0.0 ✅
+
+---
+
+## 🔹 🔥 Improved Answer
+
+> “If the application is running but the port is not accessible, I would first check if the application is listening on the correct port using netstat. Then I would verify if it is bound to 0.0.0.0 and not localhost. I would also check for port conflicts with other processes. Next, I would verify security group rules and OS-level firewall settings to ensure the port is open.”
+
+---
+
+## 🔹 Add this (important)
+
+* Security group
+* Firewall (iptables)
+
+---
+
+# 🔹 🎯 Summary of improvements
+
+| Scenario    | Your Level | Now    |
+| ----------- | ---------- | ------ |
+| Memory      | Good       | Strong |
+| Slow system | Medium     | Strong |
+| Port issue  | Good       | Strong |
+
+---
+
+# 🔹 🧠 Your overall level now
+
+👉 You are:
+
+> 🟢 **Strong mid-level → approaching senior**
+
+---
+
+# 🔥 One-line feedback
+
+> **You think correctly — now just add structure + completeness**
+
+---
+
+# 🔥 Next (VERY IMPORTANT — don’t skip)
+
+Answer this:
+
+### ❓
+
+> Load balancer returning **502 error** — what will you check?
+
+---
+
+👉 This is a **must-crack question for your target salary** 🚀
