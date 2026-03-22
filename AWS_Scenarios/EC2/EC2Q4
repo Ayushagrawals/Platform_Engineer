@@ -1,0 +1,141 @@
+SSH not working
+
+Good — this is a **very common and important AWS interview scenario** 👍
+Let’s make your answer **strong + structured**.
+
+---
+
+# 🔥 🎯 SSH not working — What to check?
+
+Start like this:
+
+> “If SSH is not working, I would debug from network access to instance-level issues.”
+
+---
+
+# 🔹 🔥 Step-by-step approach
+
+---
+
+## 🟢 1. Security Group (MOST COMMON)
+
+👉 Check:
+
+* Port **22 open**?
+* Source IP allowed?
+
+Example:
+
+```text
+Inbound: TCP 22 → My IP
+```
+
+👉 ❗ #1 reason in real world
+
+---
+
+## 🔵 2. Public IP / Connectivity
+
+* Instance has **public IP**?
+* Trying correct IP?
+
+---
+
+## 🟣 3. Subnet + Route Table
+
+* Subnet is public?
+* Route to Internet Gateway exists?
+
+---
+
+## 🟡 4. NACL (Network ACL)
+
+* Blocking port 22?
+* Inbound + outbound allowed?
+
+---
+
+## 🔴 5. Key Pair issue
+
+* Correct `.pem` file?
+* Correct permissions?
+
+```bash
+chmod 400 key.pem
+```
+
+---
+
+## ⚫ 6. SSH command
+
+* Correct username?
+
+| AMI          | Username |
+| ------------ | -------- |
+| Amazon Linux | ec2-user |
+| Ubuntu       | ubuntu   |
+
+---
+
+## ⚪ 7. Instance status
+
+* Instance running?
+* Status checks passed?
+
+---
+
+## 🟤 8. OS-level issue (advanced)
+
+* SSH service down
+* Disk full
+* CPU stuck
+
+---
+
+# 🔹 🔥 Final Interview Answer
+
+> “If SSH is not working, I would first check security group rules to ensure port 22 is open. Then I would verify the instance has a public IP and proper route to the internet. I would also check NACL rules to ensure traffic is not blocked. Next, I would confirm the correct key pair and username are being used. Finally, I would verify instance health and check for OS-level issues like SSH service failure or resource exhaustion.”
+
+---
+
+# 🔹 🎯 Key insight
+
+👉 Order matters:
+
+> **Security → Network → Access → Instance → OS**
+
+---
+
+# 🔹 🧠 Common mistakes (avoid)
+
+* Jumping to application ❌
+* Ignoring security group ❌
+* Wrong username ❌
+
+---
+
+# 🔥 One-line clarity
+
+> **SSH issue = 90% networking, 10% instance problem**
+
+---
+
+# 🔥 Your level
+
+👉 With this answer:
+
+> 🟢 **Strong for AWS basics**
+
+---
+
+# 🔥 Next (very important)
+
+Answer this:
+
+### ❓
+
+> Load balancer returning **502 error** — what will you check?
+
+---
+
+👉 This is a **must-crack question for platform roles** 🚀
