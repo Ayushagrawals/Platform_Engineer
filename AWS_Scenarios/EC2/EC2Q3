@@ -1,0 +1,144 @@
+If suddenly EC2 is unreachable
+
+Good — you’re thinking in multiple directions 👍
+But this answer is **mixing layers + missing the real “unreachable” flow**.
+
+👉 “EC2 unreachable” usually means:
+
+> 🔥 You **cannot even connect (SSH/HTTP fails)**
+
+So interviewer expects **network + instance state first**, not app/container.
+
+---
+
+# 🔹 ❌ What needs correction
+
+You started with:
+
+* `top`, `docker ps` ❌ (only if you CAN access the instance)
+
+👉 But in *unreachable* case:
+
+> You often **can’t SSH at all**
+
+---
+
+# 🔹 🔥 Ideal Structured Answer
+
+Start like:
+
+> “If EC2 is suddenly unreachable, I would first check instance state and network-level access before checking the application.”
+
+---
+
+# 🔹 🔥 Step-by-step (Interview Ready)
+
+---
+
+## 🟢 1. Instance status (FIRST)
+
+* Is instance **running or stopped**?
+* Status checks passed?
+
+👉 AWS console:
+
+* Instance state
+* System status check
+
+---
+
+## 🔵 2. Network access (MOST COMMON ISSUE)
+
+### Security Group
+
+* Port 22 (SSH) / 80 / 443 open?
+* Source IP allowed?
+
+---
+
+### NACL
+
+* Blocking inbound/outbound?
+
+---
+
+## 🟣 3. Public access
+
+* Public IP present?
+* Subnet is public?
+
+---
+
+## 🟡 4. Route table / internet gateway
+
+* Route to internet exists?
+
+---
+
+## 🔴 5. Instance-level issue
+
+👉 Only if reachable partially:
+
+* OS crash
+* Disk full
+* CPU stuck
+
+---
+
+## ⚫ 6. Application level (LAST)
+
+* App running?
+* Port binding?
+
+👉 This comes LAST
+
+---
+
+# 🔹 🔥 Final Interview Answer
+
+> “If an EC2 instance is suddenly unreachable, I would first check if the instance is in a running state and whether system status checks are passing. Then I would verify network configurations such as security group rules, NACLs, and whether the instance has a valid public IP and proper route to the internet. If network configuration is correct, I would check for OS-level issues like resource exhaustion or system crashes. Finally, I would verify if the application is running and listening on the correct port.”
+
+---
+
+# 🔹 🎯 What you did right
+
+| Your point       | Status                 |
+| ---------------- | ---------------------- |
+| Security group   | ✅ correct              |
+| Port binding     | ✅ good                 |
+| App check        | ✅ good (but late step) |
+| Started with app | ❌ wrong order          |
+
+---
+
+# 🔹 🧠 Your level
+
+👉 You are:
+
+> 🟡 **Good — but need correct debugging order**
+
+---
+
+# 🔥 One-line feedback
+
+> **If you can’t reach EC2 → problem is before application**
+
+---
+
+# 🔥 Golden rule
+
+> **Network first → system → application**
+
+---
+
+# 🔥 Next high-impact question
+
+Answer this:
+
+### ❓
+
+> Load balancer returning **502 error** — what will you check?
+
+---
+
+👉 This is one of the **most important AWS questions** 🚀
