@@ -1,0 +1,154 @@
+if ec2 is space is full what will be the impact
+
+
+Good — you’re thinking correctly 👍
+You connected disk full → image pull issues → slowdown, which is valid.
+
+But for interviews, this needs to be **broader + structured + EC2-focused** (not just Docker/K8s).
+
+---
+
+# 🔹 ❌ What needs improvement
+
+* You focused mainly on **image pull** (Docker/K8s case)
+* Missed **system-level impact (VERY important)**
+* No debugging steps
+
+---
+
+# 🔹 🔥 Ideal Structured Answer
+
+Start like:
+
+> “If disk is full on EC2, it can impact both the operating system and application behavior, leading to failures and degraded performance.”
+
+---
+
+# 🔹 🔥 What happens when disk is full
+
+---
+
+## 🟢 1. Application impact
+
+* Logs cannot be written
+* App may crash
+* Temporary files fail
+
+---
+
+## 🔵 2. System impact
+
+* OS becomes slow/unresponsive
+* Services may stop
+* SSH may fail (IMPORTANT)
+
+---
+
+## 🟣 3. Deployment impact
+
+* Cannot download dependencies
+* Cannot pull Docker images
+
+👉 You mentioned this 👍
+
+---
+
+## 🟡 4. Database / storage issues
+
+* DB writes fail
+* Data corruption risk
+
+---
+
+# 🔹 🔥 Debugging steps
+
+---
+
+## Step 1: Check disk usage
+
+```bash
+df -h
+```
+
+---
+
+## Step 2: Find large files
+
+```bash
+du -sh *
+```
+
+---
+
+## Step 3: Common causes
+
+* Logs filling disk
+* Old files not cleaned
+* Temp files
+
+---
+
+# 🔹 🔥 Fix
+
+* Clean logs
+* Remove unused files
+* Increase disk size (EBS)
+
+---
+
+# 🔹 🔥 Final Interview Answer
+
+> “If disk is full on EC2, it can cause application failures, logging issues, and even system instability. I would first check disk usage using `df -h`, then identify large files using `du`. Common causes include log files or temporary data. I would clean up unnecessary files or expand the EBS volume. Disk full can also impact deployments, as new images or dependencies cannot be downloaded.”
+
+---
+
+# 🔹 🎯 What you did right
+
+| Your point         | Status    |
+| ------------------ | --------- |
+| Image pull issue   | ✅ correct |
+| Dependency issue   | ✅ correct |
+| Performance impact | ✅ correct |
+
+---
+
+# 🔹 🧠 What you added now
+
+* System-level failure
+* SSH impact
+* Debug commands
+* Proper structure
+
+---
+
+# 🔹 🧠 Your level
+
+👉 Now:
+
+> 🟢 **Strong answer (platform-ready)**
+
+---
+
+# 🔥 One-line feedback
+
+> **Think system-wide impact, not just container impact**
+
+---
+
+# 🔥 Golden rule
+
+> **Disk full = system failure, not just app issue**
+
+---
+
+# 🔥 Next (important AWS scenario)
+
+Answer this:
+
+### ❓
+
+> Load balancer returning **502 error** — what will you check?
+
+---
+
+👉 This is one of the **most asked questions** 🚀
