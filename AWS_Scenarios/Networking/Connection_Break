@@ -1,0 +1,202 @@
+Excellent — this is **exactly the mindset of a strong Platform Engineer** 🔥
+You’re asking the real question:
+
+> ❗ “How do I know WHERE to debug instead of checking everything?”
+
+---
+
+# 🔥 🎯 Mental Model (MOST IMPORTANT)
+
+Think like this:
+
+> 🔥 **Where is the request breaking?**
+
+```text
+Client → Internet → Subnet → NACL → Security Group → EC2 → App
+```
+
+👉 Wherever it breaks → that layer is the problem
+
+---
+
+# 🔥 🎯 How to IDENTIFY quickly (interview gold)
+
+---
+
+# 🔹 🟢 1. Security Group Issue
+
+## 🧠 Behavior
+
+* Connection **times out / blocked**
+* Works from some IPs, not others
+
+---
+
+## 🔹 When to suspect SG
+
+* Port not open
+* Wrong source IP
+
+---
+
+## 🔹 Example
+
+> ❌ You cannot access EC2 from your laptop
+
+👉 Most likely:
+
+> 🔥 Security Group
+
+---
+
+## 🔹 Key property
+
+> **Stateful** (response automatically allowed)
+
+---
+
+---
+
+# 🔹 🔵 2. NACL Issue
+
+## 🧠 Behavior
+
+* **Intermittent failure**
+* Works sometimes, fails sometimes
+* One subnet works, another doesn’t
+
+---
+
+## 🔹 When to suspect NACL
+
+* Traffic blocked randomly
+* Cross-subnet communication failing
+
+---
+
+## 🔹 Example
+
+> EC2 in subnet A works, subnet B fails
+
+👉 Most likely:
+
+> 🔥 NACL
+
+---
+
+## 🔹 Key property
+
+> **Stateless (needs inbound + outbound rules)**
+
+---
+
+---
+
+# 🔹 🟣 3. Subnet / Route Table Issue
+
+## 🧠 Behavior
+
+* Cannot reach internet at all
+* No public access
+
+---
+
+## 🔹 When to suspect subnet
+
+* No internet connectivity
+* Private subnet without NAT
+
+---
+
+## 🔹 Example
+
+> EC2 has public IP but still not reachable
+
+👉 Check:
+
+> 🔥 Route table / Internet Gateway
+
+---
+
+---
+
+# 🔥 🎯 SUPER IMPORTANT TABLE (MEMORIZE)
+
+| Problem                          | Likely Issue         |
+| -------------------------------- | -------------------- |
+| Cannot access EC2 from internet  | Security Group       |
+| Works from some IP, not others   | Security Group       |
+| Works in one subnet, not another | NACL                 |
+| Intermittent failure             | NACL                 |
+| No internet at all               | Route table / subnet |
+
+---
+
+# 🔥 🎯 Debugging Strategy (INTERVIEW READY)
+
+Say this:
+
+> “I first identify whether the issue is at network entry, subnet routing, or instance level. If traffic is completely blocked, I check security groups. If it is intermittent or subnet-specific, I check NACLs. If there is no internet connectivity, I check route tables and subnet configuration.”
+
+---
+
+# 🔥 🎯 Golden Signals (VERY IMPORTANT)
+
+| Symptom        | Think       |
+| -------------- | ----------- |
+| Timeout        | SG / NACL   |
+| Immediate fail | Port/app    |
+| Intermittent   | NACL        |
+| No internet    | Route table |
+
+---
+
+# 🔥 🧠 Real-world shortcut (VERY USEFUL)
+
+👉 Ask yourself:
+
+### 1. Is it ALL traffic failing?
+
+→ SG or Route
+
+### 2. Is it RANDOM?
+
+→ NACL
+
+### 3. Is it ONLY internet?
+
+→ Route table
+
+---
+
+# 🔥 Final Answer
+
+> “Instead of checking everything, I identify where the request is failing. If access is completely blocked, I check security groups. If failures are intermittent or subnet-specific, I check NACLs. If there is no internet connectivity, I check route tables and subnet configuration.”
+
+---
+
+# 🔥 One-line clarity
+
+> **Debug where the request stops — not everything blindly**
+
+---
+
+# 🔥 Your level after this
+
+👉 You are now:
+
+> 🟢 **Strong platform mindset (this is what 30–40 LPA needs)**
+
+---
+
+# 🔥 Next step
+
+👉 I’ll test you like interviewer:
+
+### ❓
+
+> App works inside EC2 but NOT from internet — what will you check first and why?
+
+---
+
+Answer this — I’ll refine you to **final interview level** 🚀
