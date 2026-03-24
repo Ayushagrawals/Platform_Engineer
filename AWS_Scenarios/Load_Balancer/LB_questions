@@ -1,0 +1,263 @@
+Perfect — this is **exactly the kind of scenario-based thinking** interviewers expect 🔥
+Let’s go one by one, but not just answers — I’ll give you **diagnostic thinking + root cause mapping**.
+
+---
+
+# 🚀 🧠 Load Balancer Scenario-Based Answers (AWS)
+
+---
+
+## **11. Load Balancer returning 502 (Bad Gateway)**
+
+![Image](https://miro.medium.com/v2/resize%3Afit%3A1400/1%2AvWzEP89BLDHNGyFam7aWhA.png)
+
+![Image](https://pinggy.io/images/502_bad_gateway_error/502_error.webp)
+
+![Image](https://success.outsystems.com/TK_Resource/07043e9c-b18e-4eaf-8f4b-90f0eaa757b1)
+
+![Image](https://iximiuz.com/reverse-proxy-http-keep-alive-and-502s/tcp-conn-race-cond.png)
+
+### 👉 Meaning:
+
+LB **reached backend**, but backend returned invalid response
+
+### 🔍 Causes:
+
+* Application crashed / not running
+* Wrong port (LB → 8080, app → 9090)
+* Invalid HTTP response
+* Connection reset by backend
+
+### ✅ Fix:
+
+* Check app logs
+* Verify port mapping
+* Curl instance locally
+* Check target group config
+
+---
+
+## **12. Load Balancer returning 503 (Service Unavailable)**
+
+### 👉 Meaning:
+
+LB **has no healthy backend**
+
+### 🔍 Causes:
+
+* All targets unhealthy
+* Health check misconfigured
+* Instances down
+
+### ✅ Fix:
+
+* Check target group health
+* Verify health check path (`/health`)
+* Security group blocking health check
+
+---
+
+## **13. Traffic reaching LB but NOT EC2**
+
+### 👉 Meaning:
+
+LB receives request, but **can’t forward to instance**
+
+### 🔍 Root Causes (VERY IMPORTANT):
+
+* ❌ Security Group (LB → EC2 blocked)
+* ❌ NACL blocking traffic
+* ❌ Wrong target group port
+* ❌ Instance not registered
+
+### ✅ Fix approach:
+
+1. Check SG: LB SG → EC2 SG allow
+2. Check target group
+3. Check subnet/NACL
+4. Test with `telnet EC2:port`
+
+---
+
+## **14. One instance overloaded, others idle**
+
+![Image](https://substackcdn.com/image/fetch/%24s_%214Uyj%21%2Cf_auto%2Cq_auto%3Agood%2Cfl_progressive%3Asteep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F1a1213e2-86cb-4fa8-bf72-e37ffe0da44d_2250x2624.heic)
+
+![Image](https://miro.medium.com/1%2AY4MhymjDWD-AsCrZgcwCyQ.png)
+
+![Image](https://i.postimg.cc/Z52HRRLX/stickysession.jpg)
+
+![Image](https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/media/session-affinity/session-affinity.png)
+
+### 👉 Meaning:
+
+Load not distributed evenly
+
+### 🔍 Causes:
+
+* Sticky sessions enabled
+* Long-lived connections
+* Uneven health
+
+### ✅ Fix:
+
+* Disable sticky sessions
+* Use round-robin / least connection
+* Check app-level session handling
+
+---
+
+## **15. Health checks failing**
+
+### 🔍 Causes:
+
+* Wrong endpoint (`/health` not working)
+* Timeout too low
+* App slow to respond
+* SG blocking health check
+
+### ✅ Fix:
+
+* Test health endpoint manually
+* Increase timeout
+* Check logs
+* Allow LB SG in EC2 SG
+
+---
+
+## **16. LB working but response slow**
+
+### 🔍 Possible layers:
+
+#### 1. Backend issue:
+
+* High CPU / memory
+* DB slow
+
+#### 2. LB config:
+
+* Idle timeout
+* Connection reuse
+
+#### 3. Network:
+
+* Cross-AZ latency
+
+### ✅ Fix:
+
+* Check CloudWatch metrics
+* Enable keep-alive
+* Add caching / autoscaling
+
+---
+
+## **17. Sticky sessions issue**
+
+### 👉 Problem:
+
+User always routed to same instance
+
+### 🔍 Causes:
+
+* Session affinity enabled
+* Cookie misconfiguration
+
+### ✅ Fix:
+
+* Disable sticky sessions
+* Move session to Redis / DB
+
+---
+
+## **18. SSL not working on LB**
+
+### 🔍 Causes:
+
+* Certificate not attached
+* Wrong listener (HTTP instead of HTTPS)
+* Expired cert
+* Wrong domain
+
+### ✅ Fix:
+
+* Attach cert via AWS Certificate Manager
+* Configure HTTPS listener (443)
+* Check domain mapping
+
+---
+
+## **19. Target group has no healthy instances**
+
+### 👉 Same as 503 but deeper
+
+### 🔍 Causes:
+
+* Health check failing
+* Wrong port/path
+* App not running
+* SG issue
+
+### ✅ Fix:
+
+* Check health check logs
+* SSH into instance → test endpoint
+* Validate port
+
+---
+
+## **20. Wrong routing to instances (GitHub repo case)**
+
+### 👉 Meaning:
+
+Traffic going to wrong service/version
+
+### 🔍 Causes:
+
+* Wrong path-based routing
+* Wrong target group mapping
+* Listener rule priority issue
+
+### ✅ Fix:
+
+* Check listener rules
+* Verify path patterns (`/api/*`)
+* Validate target group mapping
+
+---
+
+# 🧠 🔥 Interview Trick (VERY IMPORTANT)
+
+Whenever LB issue comes, think in **layers**:
+
+```id="k9a3rd"
+Client → LB → Target Group → EC2 → Application
+```
+
+👉 Then debug step by step:
+
+1. Is LB reachable?
+2. Is target group healthy?
+3. Can LB reach EC2?
+4. Is app responding?
+
+---
+
+# 🎯 Golden Mapping (Memorize this)
+
+| Error   | Meaning                 |
+| ------- | ----------------------- |
+| 502     | Backend responded wrong |
+| 503     | No healthy backend      |
+| Timeout | Network / latency issue |
+
+---
+
+# 🚀 If you want next level
+
+I can:
+
+* Give **real interview questions with follow-ups**
+* Simulate **debugging scenario (like interviewer)**
+* Or move to **VPC / Security Group / NACL scenarios (VERY IMPORTANT)**
+
+Just tell me 👍
