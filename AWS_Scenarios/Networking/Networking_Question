@@ -1,0 +1,90 @@
+Networking Scenarios -
+
+11. App not accessible from internet
+
+Checks:
+
+Public subnet
+Route table → 0.0.0.0/0 → IGW
+Internet Gateway attached
+Public IP assigned
+Security group
+12. Works internally but not externally
+
+Causes:
+
+No public IP
+No IGW
+SG blocking external traffic
+13. Works from one subnet, not another
+
+Checks:
+
+Route table difference
+NACL rules
+Subnet association
+14. Security Group vs NACL
+Feature	Security Group	NACL
+Type	Stateful	Stateless
+Level	Instance	Subnet
+Return traffic	Auto allowed	Must allow
+
+👉 Rule:
+
+Response blocked → NACL issue
+Inbound blocked → SG issue
+15. DNS not resolving
+
+Checks:
+
+VPC DNS enabled
+Route53 records
+Domain config
+16. High network latency
+
+Causes:
+
+Cross-AZ/region traffic
+Network congestion
+
+Fix:
+
+Use same AZ
+Check metrics
+17. VPC peering not working
+
+Checks:
+
+Route tables on both sides
+No CIDR overlap
+SG allows traffic
+18. Private subnet cannot access internet
+
+Checks:
+
+NAT Gateway present
+Route table → 0.0.0.0/0 → NAT
+19. Route table misconfiguration
+
+Checks:
+
+Correct routes
+Subnet association
+Proper next hop
+20. Packet loss / intermittent connectivity
+
+Causes:
+
+Network congestion
+NACL blocking
+High CPU/network
+
+Tools:
+
+CloudWatch
+traceroute
+🎯 Key Interview Lines
+“I debug layer by layer from IGW to application”
+“Security group is stateful, NACL is stateless”
+“VPC peering needs routing on both sides”
+“Private subnet requires NAT for internet access”
