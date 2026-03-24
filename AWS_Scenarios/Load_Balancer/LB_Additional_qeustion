@@ -1,0 +1,264 @@
+Perfect — I’ll give you **clean, interview-ready answers for ALL scenarios** so you can revise easily 💪
+No fluff, just **structured + to-the-point answers**.
+
+---
+
+# 🚀 🔥 Load Balancer Scenario Answers (Revision Notes)
+
+---
+
+# 🧠 1. 503 Error (Service Unavailable)
+
+👉 **Meaning:** No healthy targets
+
+### ✅ Answer:
+
+* Check target group health
+* Verify health check path/port
+* Check security group (LB → EC2)
+* Ensure application is running
+
+👉 Key line:
+
+> LB cannot find healthy backend
+
+---
+
+# 🧠 2. Traffic reaches LB but not EC2
+
+👉 **Meaning:** Network issue between LB and EC2
+
+### ✅ Answer:
+
+* Check Security Group (LB → EC2 allowed)
+* Check NACL rules
+* Verify target group port
+* Ensure app is listening on `0.0.0.0`
+
+---
+
+# 🧠 3. High Response Time
+
+👉 **Meaning:** Latency issue (multi-layer)
+
+### ✅ Answer:
+
+Check 3 layers:
+
+1. Backend → CPU, DB latency
+2. LB → idle timeout, connections
+3. Network → cross-AZ
+
+👉 Use CloudWatch metrics
+
+---
+
+# 🧠 4. One instance overloaded
+
+👉 **Meaning:** Uneven traffic distribution
+
+### ✅ Answer:
+
+* Sticky sessions enabled
+* Long-lived connections
+* Load balancing algorithm issue
+
+👉 Fix:
+
+* Disable sticky session
+* Use round-robin / least connection
+
+---
+
+# 🧠 5. Instances running but unhealthy
+
+👉 **Meaning:** Health check failing
+
+### ✅ Answer:
+
+* Wrong path (`/health`)
+* Wrong port
+* Timeout too low
+* Security group blocking
+* App not returning 200
+
+---
+
+# 🧠 6. HTTPS not working
+
+👉 **Meaning:** SSL configuration issue
+
+### ✅ Answer:
+
+* Certificate attached via AWS Certificate Manager
+* Listener on port 443
+* Certificate valid
+* Domain mapped correctly
+
+---
+
+# 🧠 7. New version not getting traffic
+
+👉 **Meaning:** Routing misconfiguration
+
+### ✅ Answer:
+
+* LB still pointing to old target group
+* Listener rules not updated
+* New instances not registered
+* Health check failing
+
+---
+
+# 🧠 8. Routing logic
+
+👉 **Meaning:** How LB distributes traffic
+
+### ✅ Answer:
+
+* Round Robin
+* Least Connections
+* Weighted routing
+* Only healthy instances considered
+
+---
+
+# 🧠 9. Health checks passing but 500 errors
+
+👉 **Meaning:** App issue, not LB
+
+### ✅ Answer:
+
+* Health endpoint is simple
+* Actual APIs failing
+* Dependency failure (DB, cache)
+* Bug in application
+
+---
+
+# 🧠 10. Intermittent 502 error
+
+👉 **Meaning:** Backend unstable
+
+### ✅ Answer:
+
+* App crashing intermittently
+* Connection reset
+* Timeout issues
+* Partial deployment issue
+
+👉 Debug:
+
+* Check logs
+* Check instance health
+* Monitor error rate
+
+---
+
+# 🧠 11. 502 Error (Bad Gateway)
+
+👉 **Meaning:** Backend responded incorrectly
+
+### ✅ Answer:
+
+* App crashed
+* Wrong port
+* Invalid response
+* Connection reset
+
+---
+
+# 🧠 12. Health checks failing
+
+👉 **Meaning:** LB thinks instances unhealthy
+
+### ✅ Answer:
+
+* Wrong path/port
+* SG blocking
+* Timeout issue
+* App slow
+
+---
+
+# 🧠 13. Slow LB but app fine
+
+👉 **Meaning:** LB config issue
+
+### ✅ Answer:
+
+* Idle timeout
+* Connection reuse
+* SSL handshake delay
+
+---
+
+# 🧠 14. Sticky session issue
+
+👉 **Meaning:** Traffic stuck to one instance
+
+### ✅ Answer:
+
+* Session affinity enabled
+* Cookie misconfiguration
+
+👉 Fix:
+
+* Disable sticky session
+* Use shared session store
+
+---
+
+# 🧠 15. Target group no healthy instances
+
+👉 **Meaning:** Same as 503
+
+### ✅ Answer:
+
+* Health check failing
+* App not running
+* Wrong port/path
+
+---
+
+# 🧠 16. Wrong routing
+
+👉 **Meaning:** Traffic going to wrong service
+
+### ✅ Answer:
+
+* Listener rule issue
+* Path-based routing wrong
+* Priority misconfigured
+
+---
+
+# 🔥 GOLDEN DEBUG FLOW (MEMORIZE THIS)
+
+```text
+Client → Load Balancer → Target Group → EC2 → Application → Dependency
+```
+
+👉 Always debug in this order
+
+---
+
+# 🎯 FINAL TIP (VERY IMPORTANT)
+
+In interview always say:
+
+> “I will debug layer by layer starting from Load Balancer, then target group, then EC2, then application”
+
+👉 This = **Senior engineer thinking**
+
+---
+
+# 🚀 Next Step
+
+If you want to go deeper:
+
+* I can give **VPC / SG / NACL scenario questions (VERY IMPORTANT)**
+* Or **Kubernetes + LB combined scenarios (your profile🔥)**
+* Or do **mock interview with you**
+
+Just tell me 👍
