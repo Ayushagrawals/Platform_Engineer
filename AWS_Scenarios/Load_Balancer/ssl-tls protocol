@@ -1,0 +1,266 @@
+Here’s your **clean README-style notes for SSL/TLS + Protocol issues (Load Balancer focus)** 👇
+
+---
+
+# 📘 AWS Load Balancer: SSL/TLS & Protocol Issues (Debug Guide)
+
+---
+
+# 🧠 Where SSL/TLS fits in flow
+
+```text
+User → DNS (Route53) → TLS Handshake (HTTPS) → Load Balancer → Target → Application
+```
+
+👉 SSL/TLS happens **before request reaches backend**
+
+---
+
+# 🔐 TLS Termination Types
+
+---
+
+## 🟢 1. TLS Termination at Load Balancer (MOST COMMON)
+
+```text
+Client (HTTPS) → Load Balancer (decrypt) → Backend (HTTP)
+```
+
+* Certificate attached to LB
+* Backend gets plain HTTP
+
+---
+
+## 🔵 2. End-to-End TLS
+
+```text
+Client → HTTPS → LB → HTTPS → Backend
+```
+
+* Encryption maintained throughout
+
+---
+
+## 🟡 3. TLS at Application
+
+```text
+Client → HTTP → LB → HTTPS → Backend
+```
+
+* Rare setup
+
+---
+
+# 🚀 Common SSL/TLS Issues
+
+---
+
+## ❌ 1. HTTPS not working (HTTP works)
+
+**Cause:**
+
+* No HTTPS listener (443) on LB
+* Certificate not attached
+
+**Fix:**
+
+* Add listener on 443
+* Attach cert via AWS Certificate Manager
+
+---
+
+## ❌ 2. Certificate mismatch (Domain issue)
+
+**Cause:**
+
+* Cert domain ≠ request domain
+
+Example:
+
+```text
+Cert: api.xyz.com
+Request: app.xyz.com ❌
+```
+
+**Fix:**
+
+* Use correct domain or wildcard cert
+
+---
+
+## ❌ 3. Expired SSL certificate
+
+**Cause:**
+
+* Certificate validity expired
+
+**Fix:**
+
+* Renew certificate
+
+---
+
+## ❌ 4. TLS Handshake Failure
+
+**Cause:**
+
+* Unsupported TLS version
+* Cipher mismatch
+
+**Fix:**
+
+* Enable compatible TLS version on LB
+
+---
+
+## ❌ 5. Port 443 blocked
+
+**Cause:**
+
+* Security Group does not allow HTTPS
+
+**Fix:**
+
+* Allow inbound 443
+
+---
+
+## ❌ 6. Backend protocol mismatch
+
+**Cause:**
+
+* LB sends HTTP but backend expects HTTPS (or vice versa)
+
+**Fix:**
+
+* Match protocol in target group
+
+---
+
+## ❌ 7. Mixed content issue
+
+**Cause:**
+
+* HTTPS page calling HTTP APIs
+
+**Fix:**
+
+* Use HTTPS everywhere
+
+---
+
+## ❌ 8. Redirect loop (HTTP ↔ HTTPS)
+
+**Cause:**
+
+* LB redirect + app redirect conflict
+
+**Fix:**
+
+* Handle redirect in one place only
+
+---
+
+# 🌐 Protocol-Level Issues (VERY IMPORTANT)
+
+---
+
+## 🔴 HTTP vs HTTPS mismatch
+
+**Scenario:**
+
+```text
+Client → HTTPS
+LB → HTTP
+Backend expects HTTPS ❌
+```
+
+👉 Results:
+
+* 502 / connection error
+
+---
+
+## 🔴 HTTP/1.1 vs HTTP/2 issue
+
+**Cause:**
+
+* Client uses HTTP/2, backend doesn’t support
+
+👉 Rare but possible
+
+---
+
+## 🔴 gRPC issues
+
+* Requires HTTP/2
+* Wrong LB config → failure
+
+---
+
+## 🔴 WebSocket issues
+
+* Needs connection upgrade
+* LB not configured → fails
+
+---
+
+# 🧠 Debug Flow for SSL Issues (INTERVIEW GOLD)
+
+```text
+1. DNS resolves correctly? (Route53)
+2. LB reachable on 443?
+3. HTTPS listener configured?
+4. Certificate attached?
+5. Domain matches certificate?
+6. Security Group allows 443?
+7. TLS handshake successful?
+8. Backend protocol correct?
+```
+
+---
+
+# 🚀 Error Mapping
+
+| Error                        | Likely Cause              |
+| ---------------------------- | ------------------------- |
+| SSL error in browser         | Certificate issue         |
+| 502                          | Backend protocol mismatch |
+| 503                          | No healthy targets        |
+| Connection timeout           | SG / NACL / port blocked  |
+| ERR_CERT_COMMON_NAME_INVALID | Domain mismatch           |
+
+---
+
+# 🎯 Key Interview Lines
+
+* “TLS is usually terminated at the load balancer”
+* “Certificate must match the domain name”
+* “Protocol mismatch between LB and backend can cause 502”
+* “Port 443 must be open for HTTPS traffic”
+
+---
+
+# 💪 Final Takeaway
+
+```text
+TLS = secure communication
+LB = usually handles TLS
+Backend = must match protocol
+```
+
+---
+
+# 🚀 Next Step (Coming Up)
+
+We can now cover:
+
+* Route53 records (A, CNAME, Alias, etc.)
+* DNS debugging scenarios
+
+---
+
+If you want, I can also:
+
+* Add **real production SSL debugging scenarios**
+* Or combine **DNS + SSL + LB in one flow (very important)** 🔥
