@@ -1,0 +1,276 @@
+Here’s your **IAM scenario-based debugging notes in clean README format (copy-paste ready)** 👇
+
+---
+
+# 📘 AWS IAM – Scenario-Based Debugging Guide
+
+---
+
+# 🧠 Core Concepts
+
+---
+
+## 🔑 IAM Components
+
+* **User** → Human access
+* **Role** → Service-to-service access
+* **Policy** → Permissions (Allow/Deny)
+
+---
+
+## ⚠️ Key Rules
+
+* Explicit **Deny > Allow**
+* Role must be **attached + assumed**
+* Permissions depend on:
+
+  * Policy
+  * Trust relationship
+
+---
+
+# 🧩 Scenario-Based Questions
+
+---
+
+## 31️⃣ Access Denied even after permission
+
+### ❓ Problem:
+
+User/role has permission but still getting `AccessDenied`
+
+### 🔍 Causes:
+
+* Explicit Deny in policy
+* SCP (Service Control Policy) restriction
+* Wrong resource ARN
+* Missing permission boundary
+
+### ✅ Fix:
+
+* Check all policies (inline + managed)
+* Look for explicit Deny
+* Verify ARN
+
+---
+
+## 32️⃣ EC2 cannot access S3
+
+### ❓ Problem:
+
+EC2 trying to access S3 but fails
+
+### 🔍 Causes:
+
+* No IAM role attached to EC2
+* Role missing S3 permission
+* Bucket policy blocking
+
+### ✅ Fix:
+
+* Attach IAM role to EC2
+* Add S3 access policy
+* Check bucket policy
+
+---
+
+## 33️⃣ Role attached but not working
+
+### ❓ Problem:
+
+Role exists but access fails
+
+### 🔍 Causes:
+
+* Trust relationship missing
+* Role not assumed properly
+* Wrong service principal
+
+### ✅ Fix:
+
+* Verify trust policy
+* Ensure EC2/Lambda allowed to assume role
+
+---
+
+## 34️⃣ Wrong policy attached
+
+### ❓ Problem:
+
+Permission expected but not working
+
+### 🔍 Causes:
+
+* Wrong policy attached
+* Missing required actions
+* Incorrect resource scope
+
+### ✅ Fix:
+
+* Attach correct policy
+* Add required actions (`s3:GetObject`, etc.)
+
+---
+
+## 35️⃣ Temporary credentials expired
+
+### ❓ Problem:
+
+Access suddenly stops working
+
+### 🔍 Cause:
+
+* STS token expired
+
+### ✅ Fix:
+
+* Refresh credentials
+* Re-login / re-assume role
+
+---
+
+## 36️⃣ Cross-account access not working
+
+### ❓ Problem:
+
+Access from Account A → Account B fails
+
+### 🔍 Causes:
+
+* Missing trust relationship
+* Role not assumable
+* Missing permission in target account
+
+### ✅ Fix:
+
+* Add trust policy in target account
+* Allow `sts:AssumeRole`
+
+---
+
+## 37️⃣ API call failing due to IAM
+
+### ❓ Problem:
+
+AWS API returns access error
+
+### 🔍 Causes:
+
+* Missing action permission
+* Wrong region/resource
+* Policy incomplete
+
+### ✅ Fix:
+
+* Add required action
+* Verify API permissions
+
+---
+
+## 38️⃣ Service role missing
+
+### ❓ Problem:
+
+Service (Lambda, ECS, etc.) cannot access resources
+
+### 🔍 Cause:
+
+* No IAM role attached
+
+### ✅ Fix:
+
+* Attach correct service role
+* Add permissions
+
+---
+
+## 39️⃣ Over-permission issue (security risk)
+
+### ❓ Problem:
+
+User/role has too many permissions
+
+### 🔍 Causes:
+
+* Using `*:*`
+* No least privilege
+
+### ✅ Fix:
+
+* Restrict actions
+* Use least privilege principle
+
+---
+
+## 40️⃣ Policy working for one service, not another
+
+### ❓ Problem:
+
+Works for S3 but not for DynamoDB
+
+### 🔍 Causes:
+
+* Service-specific permissions missing
+* Resource ARN mismatch
+
+### ✅ Fix:
+
+* Add service-specific actions
+* Correct ARN format
+
+---
+
+# 🧠 Debug Flow (INTERVIEW GOLD)
+
+```text
+1. Who is making the request? (User / Role)
+2. What action is being performed?
+3. Which resource is being accessed?
+4. Check policy (Allow/Deny)
+5. Check trust relationship (if role)
+6. Check external factors (SCP, bucket policy)
+```
+
+---
+
+# 🚨 Common IAM Issues
+
+* Missing role attachment
+* Wrong trust relationship
+* Explicit deny
+* Expired credentials
+* Resource ARN mismatch
+
+---
+
+# 🎯 Interview One-Liners
+
+* “IAM evaluates explicit deny first”
+* “Roles require trust relationships to be assumed”
+* “Access depends on both IAM policy and resource policy”
+* “I follow least privilege principle”
+
+---
+
+# 💪 Final Takeaway
+
+```text
+IAM = Who can do What on Which resource
+```
+
+---
+
+# 🚀 Next Step
+
+You can now combine IAM with:
+
+* S3 access control
+* EC2 role-based access
+* Cross-account architecture
+
+---
+
+If you want next:
+
+* I can create **S3 + Storage scenario README**
+* Or combine **IAM + S3 + Networking debugging scenarios** 🔥
