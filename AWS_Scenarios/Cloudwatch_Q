@@ -1,0 +1,282 @@
+Here’s your **CloudWatch scenario-based notes in clean README format (copy-paste ready)** 👇
+
+---
+
+# 📘 AWS CloudWatch – Scenario-Based Debugging Guide
+
+---
+
+# 🧠 What is CloudWatch used for?
+
+* Monitoring (metrics)
+* Logging (application/system logs)
+* Alerting (alarms)
+
+---
+
+# 🚀 Core Concepts
+
+---
+
+## 📊 Metrics vs Logs
+
+| Type    | Example               |
+| ------- | --------------------- |
+| Metrics | CPU, latency, network |
+| Logs    | Errors, stack traces  |
+
+---
+
+## ⚠️ Default vs Custom Metrics
+
+* ✅ Default: CPU, Network
+* ❌ Not default: Memory (needs agent)
+
+---
+
+## 🔔 Alarms
+
+* Threshold-based alerts
+* Evaluation period matters
+* Can trigger actions (SNS, Auto Scaling)
+
+---
+
+# 🧩 Scenario-Based Questions
+
+---
+
+## 1️⃣ High CPU but no alert
+
+### ❓ Problem:
+
+CPU = 90%, but no alert triggered
+
+### 🔍 Causes:
+
+* Threshold too high
+* Wrong metric selected
+* Evaluation period too long
+
+### ✅ Fix:
+
+* Adjust threshold
+* Reduce evaluation window
+
+---
+
+## 2️⃣ Application slow but CPU normal
+
+### ❓ Problem:
+
+System slow, but CPU/memory fine
+
+### 🔍 Causes:
+
+* Disk I/O bottleneck
+* Network latency
+* DB slowness
+
+### ✅ Fix:
+
+* Check disk metrics
+* Check DB performance
+
+---
+
+## 3️⃣ Logs not appearing
+
+### ❓ Problem:
+
+Application logs missing
+
+### 🔍 Causes:
+
+* CloudWatch agent not installed
+* IAM role missing permission
+* Log group misconfigured
+
+### ✅ Fix:
+
+* Install/configure agent
+* Fix IAM role
+
+---
+
+## 4️⃣ Too many alerts (alert fatigue)
+
+### ❓ Problem:
+
+Too many alerts, mostly useless
+
+### 🔍 Causes:
+
+* Threshold too sensitive
+* No filtering
+* No aggregation
+
+### ✅ Fix:
+
+* Tune thresholds
+* Use composite alarms
+
+---
+
+## 5️⃣ Instance not responding
+
+### ❓ Problem:
+
+EC2 becomes unresponsive
+
+### 🔍 Causes:
+
+* CPU spike
+* Instance status check failed
+* Memory exhaustion
+
+### ✅ Fix:
+
+* Check status checks
+* Monitor memory (custom metric)
+
+---
+
+## 6️⃣ Auto Scaling not triggering
+
+### ❓ Problem:
+
+Traffic increases, but no scaling
+
+### 🔍 Causes:
+
+* Alarm not linked to ASG
+* Wrong metric used
+* Cooldown period
+
+### ✅ Fix:
+
+* Verify alarm-action mapping
+* Adjust cooldown
+
+---
+
+## 7️⃣ 5xx errors increasing
+
+### ❓ Problem:
+
+Error rate increasing
+
+### 🔍 Causes:
+
+* Backend failure
+* Target unhealthy
+* App crash
+
+### ✅ Fix:
+
+* Check LB metrics
+* Check application logs
+
+---
+
+## 8️⃣ Memory issue not visible
+
+### ❓ Problem:
+
+App crashes due to memory, but no metric
+
+### 🔍 Cause:
+
+* Memory not collected by default
+
+### ✅ Fix:
+
+* Install CloudWatch agent
+
+---
+
+## 9️⃣ High network latency
+
+### ❓ Problem:
+
+Slow requests
+
+### 🔍 Causes:
+
+* Cross-AZ traffic
+* Network congestion
+* High load
+
+### ✅ Fix:
+
+* Check network metrics
+* Optimize placement
+
+---
+
+## 🔟 Need proactive alerting
+
+### ❓ Problem:
+
+Want alert before failure
+
+### 🔍 Solution:
+
+* Use anomaly detection
+* Use trend-based alarms
+
+---
+
+# 🧠 Debug Flow (INTERVIEW GOLD)
+
+```text id="u6d4os"
+1. Check metrics (CPU, latency, network)
+2. Check logs (errors, exceptions)
+3. Correlate metrics + logs
+4. Identify root cause
+```
+
+---
+
+# 🚨 Common Mistakes
+
+* ❌ Assuming CPU tells everything
+* ❌ Ignoring logs
+* ❌ Not configuring alarms properly
+* ❌ Missing custom metrics (memory)
+
+---
+
+# 🎯 Interview One-Liners
+
+* “CloudWatch provides metrics, logs, and alarms”
+* “Memory is not a default metric”
+* “I correlate metrics with logs to debug issues”
+* “Alarm behavior depends on threshold and evaluation period”
+
+---
+
+# 💪 Final Takeaway
+
+```text id="2nljsl"
+Metrics → What is happening
+Logs → Why it is happening
+Alarms → When to react
+```
+
+---
+
+# 🚀 Next Step
+
+You can now combine this with:
+
+* Load Balancer debugging
+* VPC networking
+* Auto Scaling
+
+---
+
+If you want next:
+
+* I can create **IAM + S3 + Auto Scaling README**
+* Or give **end-to-end debugging scenario (CloudWatch + LB + VPC)** 🔥
